@@ -2,19 +2,19 @@
 # Init Script Files
 
 locals {
-  php_script      = "/home/opc/install_php74.sh"
-  moodle_script       = "/home/opc/install_moodle.sh"
+  php_script      = "/home/opc/install_php81.sh"  # Updated filename
+  moodle_script   = "/home/opc/install_moodle.sh"
   security_script = "/home/opc/configure_local_security.sh"
-  create_moodle_db    = "/home/opc/create_moodle_db.sh"
+  create_moodle_db = "/home/opc/create_moodle_db.sh"
   fault_domains_per_ad = 3
 }
 
 data "template_file" "install_php" {
-  template = file("${path.module}/scripts/install_php74.sh")
+  template = file("${path.module}/scripts/install_php81.sh")  # Updated filename
 
   vars = {
-    mysql_version         = var.mysql_version,
-    user                  = var.vm_user
+    mysql_version = var.mysql_version,
+    user          = var.vm_user
   }
 }
 
