@@ -1,6 +1,8 @@
 # oci-moodle-mds
 
-Deploy Moodle 4.5 (reason for fork) on Oracle Cloud Intrastructure (OCI) and MySQL Database Service (MDS) using these Terraform modules.
+Note: This is in development, has not been tested, but the objective is to upgrade Moodle to 4.5LTS and PHP 8.1 and add optional features for Redis caching and auto SSL
+
+Deploy Moodle 4.5 on Oracle Cloud Intrastructure (OCI) and MySQL Database Service (MDS) using these Terraform modules.
 
 The same modules are used as Resource Manager Stack.
 
