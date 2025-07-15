@@ -1,6 +1,16 @@
 variable "mysql_version" {
   description = "The version of the Mysql Shell."
-  default     = "8.0.33"
+  default     = "8.0.35"  # Updated to newer version
+}
+
+variable "moodle_version" {
+  description = "Moodle version to install"
+  default     = "4.5"
+}
+
+variable "php_version" {
+  description = "PHP version to install"
+  default     = "8.1"
 }
 
 variable "compartment_ocid" {
