@@ -21,6 +21,21 @@ variableGroups:
       - node_image_id
       - user_ocid
 
+ - moodle_version:
+    type: string
+    visible: true
+    required: false
+    default: "4.5"
+    title: "Moodle Version"
+    description: "Version of Moodle to install"
+
+-  php_version:
+    type: string
+    visible: true
+    required: false
+    default: "8.1"
+    title: "PHP Version"
+    description: "PHP version to install"
 
   - title: Required Variables
     visible: true
