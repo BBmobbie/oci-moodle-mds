@@ -193,3 +193,37 @@ variable "deploy_mds_ha" {
   type        = bool
   default     = false
 }
+
+variable "mds_instance_name" {
+  description = "Name of the MDS instance"
+  default     = "MySQLInstance-4.5"
+}
+
+variable "moodle_instance_name" {
+  description = "Name of the Moodle compute instance"
+  default     = "MoodleServer-4.5"
+}
+
+variable "enable_redis" {
+  description = "Enable Redis for session storage and caching"
+  type        = bool
+  default     = true
+}
+
+variable "enable_ssl" {
+  description = "Enable SSL/TLS with Let's Encrypt"
+  type        = bool
+  default     = false
+}
+
+variable "ssl_domain" {
+  description = "Domain name for SSL certificate (required if enable_ssl is true)"
+  type        = string
+  default     = ""
+}
+
+variable "ssl_email" {
+  description = "Email for Let's Encrypt SSL certificate"
+  type        = string
+  default     = ""
+}
