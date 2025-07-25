@@ -12,6 +12,7 @@ output "moodle_schema" {
 
 output "moodle_db_password" {
   value = var.moodle_password
+  sensitive = true
 }
 
 output "mds_instance_ip" {
@@ -20,4 +21,5 @@ output "mds_instance_ip" {
 
 output "ssh_private_key" {
   value = local.private_key_to_show
+  sensitive = true
 }
