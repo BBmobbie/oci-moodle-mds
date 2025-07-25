@@ -4,7 +4,6 @@ schemaVersion: 1.3.0
 version: "202306301"
 locale: "en"
 
-
 variableGroups:
   - title: "General Configuration"
     visible: false
@@ -21,22 +20,6 @@ variableGroups:
       - node_image_id
       - user_ocid
 
- - moodle_version:
-    type: string
-    visible: true
-    required: false
-    default: "4.5"
-    title: "Moodle Version"
-    description: "Version of Moodle to install"
-
--  php_version:
-    type: string
-    visible: true
-    required: false
-    default: "8.1"
-    title: "PHP Version"
-    description: "PHP version to install"
-
   - title: Required Variables
     visible: true
     variables:
@@ -49,7 +32,7 @@ variableGroups:
       - moodle_schema
 
   - title: Use HA for MDS
-    visible: false
+    visible: true
     variables:
       - deploy_mds_ha
 
@@ -75,7 +58,15 @@ variableGroups:
       - vcn
       - vcn_cidr
 
-  - title: Use Existing Intrastructure
+  - title: "Advanced Features"
+    visible: true
+    variables:
+      - enable_redis
+      - enable_ssl
+      - ssl_domain
+      - ssl_email
+
+  - title: Use Existing Infrastructure
     visible: true
     variables:
       - useExistingInfra
@@ -104,26 +95,54 @@ variables:
     type: boolean
     default: false
 
-
   use_multiple_webservers:
     title: Deploy multiple webservers
     type: boolean
     default: false
+
   nb_of_webserver:
     title: Number of Webservers to deploy
     type: integer
     default: 1
     visible: ${use_multiple_webservers}
+
   use_AD:
     title: Deploy on different Availability Domains
     type: boolean
     default: false
     visible: ${use_multiple_webservers}
+
   dedicated:
     title: Does each Webserver need their own user and schema ? (if so the number will be used as suffix)
     type: boolean
     default: false
     visible: ${use_multiple_webservers}
+
+  enable_redis:
+    type: boolean
+    default: true
+    title: "Enable Redis Caching"
+    description: "Enable Redis for session storage and caching (recommended for production)"
+
+  enable_ssl:
+    type: boolean
+    default: false
+    title: "Enable SSL/TLS"
+    description: "Automatically configure SSL/TLS with Let's Encrypt"
+
+  ssl_domain:
+    type: string
+    visible: ${enable_ssl}
+    required: false
+    title: "SSL Domain Name"
+    description: "Domain name for SSL certificate (e.g., moodle.example.com)"
+
+  ssl_email:
+    type: string
+    visible: ${enable_ssl}
+    required: false
+    title: "SSL Email"
+    description: "Email address for Let's Encrypt SSL certificate notifications"
 
   node_shape:
     type: oci:core:instanceshape:name
@@ -200,41 +219,49 @@ variables:
     description: OCID of existing VCN to use
     dependsOn:
       compartmentId: compartment_ocid
+
   existing_internet_gateway_ocid:
     type: string
     visible: ${useExistingInfra}
     title: Internet Gateway OCID
     description: OCID of existing Internet Gateway to use
+
   existing_nat_gateway_ocid:
     type: string
     visible: ${useExistingInfra}
     title: NAT Gateway OCID
     description: OCID of existing NAT Gateway to use
+
   existing_public_route_table_ocid:
     type: string
     visible: ${useExistingInfra}
     title: Public Routing Table OCID
     description: OCID of existing Public Routing Table to use
+
   existing_private_route_table_ocid:
     type: string
     visible: ${useExistingInfra}
     title: Private Routing Table OCID
     description: OCID of existing Private Routing Table to use
+
   existing_public_security_list_ocid:
     type: string
     visible: ${useExistingInfra}
     title: Public Security List OCID
     description: OCID of existing Public Security List (ssh access) to use
+
   existing_public_security_list_http_ocid:
     type: string
     visible: ${useExistingInfra}
     title: HTTP Public Security List OCID
     description: OCID of existing HTTP Public Security List to use
+
   existing_private_security_list_ocid:
     type: string
     visible: ${useExistingInfra}
     title: Private Security List OCID
     description: OCID of existing Private Security List allowing MySQL traffic to use
+
   existing_public_subnet_ocid:
     type: oci:core:subnet:id
     dependsOn:
@@ -243,6 +270,7 @@ variables:
     visible: ${useExistingInfra}
     title: Public Subnet OCID
     description: OCID of existing Public Subnet to use
+
   existing_private_subnet_ocid:
     type: oci:core:subnet:id
     dependsOn:
@@ -251,6 +279,7 @@ variables:
     visible: ${useExistingInfra}
     title: Private Subnet OCID
     description: OCID of existing Private Subnet to use
+
   existing_mds_instance_ocid:
     type: string
     visible: ${useExistingInfra}
@@ -297,7 +326,7 @@ variables:
   deploy_mds_ha:
     title: Deploy High Availability for MDS
     type: boolean
-    default: fals
+    default: false
 
   moodle_password:
     type: password
@@ -310,11 +339,13 @@ variables:
     type: string
     required: true
     title: MySQL Database Service Instance's name
+    default: "MySQLInstance-4.5"
 
   moodle_instance_name:
     type: string
     required: true
     title: Moodle Compute Instance's name
+    default: "MoodleServer-4.5"
 
   moodle_name:
     type: string
@@ -330,6 +361,11 @@ variables:
     required: true
     title: MySQL Moodle Schema
     description: MySQL Schema/Database for Moodle
+
+  mysql_shape:
+    type: string
+    title: "MySQL Database Service Shape"
+    default: "MySQL.VM.Standard.E3.1.8GB"
 
 outputGroups:
 - title: "Services IP"
@@ -357,4 +393,3 @@ outputs:
   ssh_private_key:
     title: "Generated SSH private key"
     sensitive: true
-                          
