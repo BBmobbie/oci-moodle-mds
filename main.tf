@@ -251,4 +251,10 @@ module "moodle" {
   dedicated             = var.dedicated
   flex_shape_ocpus      = var.node_flex_shape_ocpus
   flex_shape_memory     = var.node_flex_shape_memory
+  
+  # New variables for Redis and SSL
+  enable_redis          = var.enable_redis
+  enable_ssl            = var.enable_ssl
+  ssl_domain            = var.ssl_domain
+  ssl_email             = var.ssl_email
 }
