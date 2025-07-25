@@ -8,4 +8,4 @@ The same modules are used as Resource Manager Stack.
 
 The latest stack can be downloaded directly in the releases (the zip file)
 
-[![Deploy to Oracle Cloud](https://oci-resourcemanager-plugin.plugins.oci.oraclecloud.com/latest/deploy-to-oracle-cloud.svg)](https://cloud.oracle.com/resourcemanager/stacks/create?zipUrl=https://github.com/BBmobbie/oci-moodle-mds/releases/download/Alpha/oci-moodle-mds-0.1.zip)
+[![Deploy to Oracle Cloud](https://oci-resourcemanager-plugin.plugins.oci.oraclecloud.com/latest/deploy-to-oracle-cloud.svg)](https://cloud.oracle.com/resourcemanager/stacks/create?zipUrl=https://github.com/BBmobbie/oci-moodle-mds/releases/download/Alpha/oci-moodle-mds-main.zip)
